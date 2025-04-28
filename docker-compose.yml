@@ -1,0 +1,17 @@
+services:
+  rag-system:
+    build: .
+    volumes:
+      - ./data:/app/data
+      - ./chroma_db:/app/chroma_db
+    env_file:
+      - .env
+    environment:
+      - PYTHONPATH=/app
+      - PYTHONUNBUFFERED=1
+    ports:
+      - "8000:8000"  # For future API implementation
+    command: python src/main.py  # Default command
+    # Alternative commands:
+    # command: python src/main.py --ingest  # For ingestion
+    # command: python src/main.py --query "What is my deductible?"  # For querying
